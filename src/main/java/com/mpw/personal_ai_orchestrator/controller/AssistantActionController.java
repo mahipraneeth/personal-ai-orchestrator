@@ -1,5 +1,6 @@
 package com.mpw.personal_ai_orchestrator.controller;
 
+import com.mpw.personal_ai_orchestrator.dto.AssistantActionRequest;
 import com.mpw.personal_ai_orchestrator.dto.ChatRequest;
 import com.mpw.personal_ai_orchestrator.dto.ChatResponse;
 import com.mpw.personal_ai_orchestrator.service.AssistantActionService;
@@ -20,7 +21,7 @@ public class AssistantActionController {
     }
 
     @PostMapping("/act")
-    public ChatResponse act(@Valid @RequestBody ChatRequest request) {
+    public ChatResponse act(@Valid @RequestBody AssistantActionRequest request) {
         return new ChatResponse(actionService.handle(request));
     }
 }

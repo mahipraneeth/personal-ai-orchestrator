@@ -50,11 +50,4 @@ public class TaskTools {
         log.info("listTasks tool get called");
         return taskService.findAll();
     }
-
-    @Tool(description = "Get current weather for a specified location")
-    public String getWeather(@ToolParam(description = "City name, e.g., London, Tokyo") String city) {
-        // Integrate with a external API or database here
-        log.info("getWeather tool get called with city {}", city);
-        return "The weather in " + city + " is sunny with 22°C.";
-    }
 }
