@@ -1,6 +1,7 @@
 package com.mpw.personal_ai_orchestrator.exception;
 
 import com.mpw.personal_ai_orchestrator.dto.ApiError;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -50,4 +51,31 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(422).body(
                 new ApiError(422, "Unprocessable Entity", ex.getMessage()));
     }
+
+    @ExceptionHandler(MemoryNotFoundException.class)
+    public ResponseEntity<ApiError> handleMemoryNotFound(
+            MemoryNotFoundException exception) {
+
+        ApiError error = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                "Not Found",
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(MemoryAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleMemoryAlreadyExists(
+            MemoryAlreadyExistsException exception) {
+
+        ApiError error = new ApiError(
+                HttpStatus.CONFLICT.value(),
+                "Conflict",
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
 }
